@@ -1,0 +1,48 @@
+include:
+  - template: "Workflows/Branch-Pipelines.gitlab-ci.yml"
+
+stages:
+  - build
+  - test
+  - package
+  - publish
+
+default:
+  image: hectorlachambre/oc-expert-devops-java-python
+  before_script:
+    - pip install --no-cache-dir -r requirements.txt
+
+build_application:
+  stage: build
+  script:
+    - python3 java-ci.py build
+  artifacts:
+    name: "ci-build-result"
+    paths:
+      - build/
+
+test_application:
+  stage: test
+  script:
+    - python3 java-ci.py test
+  artifacts:
+    reports:
+      junit: build/test-results/test/*.xml
+
+package_application:
+  stage: package
+  script:
+    - python3 java-ci.py pack
+  artifacts:
+    name: "ci-package-result"
+    paths:
+      - build/libs/*.war
+
+publish_application:
+  stage: publish
+  variables:
+    GITLAB_TOKEN_NAME: "Job-Token"
+    GITLAB_PROJECT_ID: $CI_PROJECT_ID
+    GITLAB_TOKEN: $CI_JOB_TOKEN
+  script:
+    - python3 java-ci.py publish
