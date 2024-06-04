@@ -18,9 +18,10 @@ Workshops play a crucial role in fostering learning and collaboration. Our appli
 ## Technical Overview
 
 - **Java Development Kit (JDK):** We use **JDK 21**, tested with **Adoptium**, to power our application.
-- **Database:** Our backend relies on a **PostgreSQL** database for data storage.
+- **Database:** Our backend relies on a **PostgreSQL 13** database for data storage.
 - **Build Tool:** We leverage **Gradle 8.7** for managing dependencies and building the project.
 - **Spring Boot:** Our application is based on **Spring Boot 3.2.4**, which provides a robust framework for creating RESTful APIs.
+- **Application Server:** Our application can run on Tomcat server that require version 10.1.24.
 
 ## Building and Running
 
@@ -40,6 +41,27 @@ To compile and run the application locally, follow these steps:
    ./gradlew bootRun
    ```
 
+To run correctly the application, ensure you setup the postgres Database (localy installed or installed with docker)
+
+```bash
+docker run -p "5432:5432" -e "POSTGRES_DB=workshopsdb" -e "POSTGRES_USER=workshops_user" -e "POSTGRES_PASSWORD=oc2024" postgres:13
+
+```
+
+Alternatively, you could use the compose file by executing the following command
+
+```bash
+docker compose up
+```
+
+## Configuration
+
+You can configure the application with these environment variables
+
+- SPRING_DATASOURCE_URL: JDBC URI for DB access (ex. jdbc:postgresql://db:5432/mydatabase)
+- SPRING_DATASOURCE_USERNAME: Database user name used by the application
+- SPRING_DATASOURCE_PASSWORD: Database user password used by the application
+
 ## Testing
 
 We take testing seriously! To verify the correctness of our application, run the following command:
@@ -57,6 +79,8 @@ When you’re ready to package the application for deployment, create a deployab
 ```bash
 ./gradlew bootWar
 ```
+
+The generated war file can be used with many application servers such as Tomcat, Wildfly...
 
 ## Publishing to GitLab Registry
 
