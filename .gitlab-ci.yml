@@ -3,46 +3,23 @@ include:
 
 stages:
   - build
-  - test
-  - package
   - publish
 
 default:
-  image: hectorlachambre/oc-expert-devops-java-python
+  image: hectorlachambre/oc-expert-devops-docker-python
+  services:
+    - docker:26.1.4-dind
   before_script:
     - pip install --no-cache-dir -r requirements.txt
 
 build_application:
   stage: build
   script:
-    - python3 java-ci.py build
-  artifacts:
-    name: "ci-build-result"
-    paths:
-      - build/
-
-test_application:
-  stage: test
-  script:
-    - python3 java-ci.py test
-  artifacts:
-    reports:
-      junit: build/test-results/test/*.xml
-
-package_application:
-  stage: package
-  script:
-    - python3 java-ci.py pack
-  artifacts:
-    name: "ci-package-result"
-    paths:
-      - build/libs/*.war
+    - python3 docker-ci.py build --tag $CI_REGISTRY_IMAGE/$CI_COMMIT_REF_SLUG
 
 publish_application:
   stage: publish
-  variables:
-    GITLAB_TOKEN_NAME: "Job-Token"
-    GITLAB_PROJECT_ID: $CI_PROJECT_ID
-    GITLAB_TOKEN: $CI_JOB_TOKEN
   script:
-    - python3 java-ci.py publish
+    - python3 docker-ci.py publish $CI_REGISTRY_IMAGE/$CI_COMMIT_REF_SLUG
+      --username $CI_REGISTRY_USER
+      --password $CI_REGISTRY_PASSWORD
