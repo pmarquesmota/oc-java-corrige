@@ -1,0 +1,11 @@
+app:
+  image: registry.gitlab.com/oc-expert-devops-training/workshop-organizer/snapshot:latest
+  port: 8080
+  imagePullSecret: gitlab-registry-secret
+
+db:
+  image: postgres:13
+  port: 5432
+  username: postgres
+  password: 1y>?\'5pcw,9eMFp-7<W
+  database: workshop-organizer-database
