@@ -3,7 +3,6 @@ include:
 
 stages:
   - build
-  - publish
 
 default:
   image: hectorlachambre/oc-expert-devops-docker-python
@@ -16,10 +15,6 @@ build_application:
   stage: build
   script:
     - python3 docker-ci.py build --tag $CI_REGISTRY_IMAGE/$CI_COMMIT_REF_SLUG
-
-publish_application:
-  stage: publish
-  script:
     - python3 docker-ci.py publish $CI_REGISTRY_IMAGE/$CI_COMMIT_REF_SLUG
       --username $CI_REGISTRY_USER
       --password $CI_REGISTRY_PASSWORD
