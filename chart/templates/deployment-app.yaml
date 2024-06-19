@@ -23,12 +23,12 @@ spec:
         - name: SPRING_DATASOURCE_USERNAME
           valueFrom:
             secretKeyRef:
-              name: db-secret
+              name: workshop-organizer-db-secret
               key: username
         - name: SPRING_DATASOURCE_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: db-secret
+              name: workshop-organizer-db-secret
               key: password
       imagePullSecrets:
       - name: {{ .Values.app.imagePullSecret }}

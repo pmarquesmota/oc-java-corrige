@@ -1,0 +1,15 @@
+FROM tomcat:10.1.24-jdk21-temurin
+
+WORKDIR /app
+
+COPY . .
+
+RUN ./gradlew bootWar
+
+RUN rm -rf $CATALINA_HOME/webapps/*
+
+RUN mv /app/build/libs/* $CATALINA_HOME/webapps/ROOT.war
+
+EXPOSE 8080
+
+
