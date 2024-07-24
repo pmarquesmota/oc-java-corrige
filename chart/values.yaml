@@ -1,9 +1,5 @@
 app:
-<<<<<<< Updated upstream
-  image: registry.gitlab.com/oc-expert-devops-training/workshop-organizer/snapshot:latest
-=======
-  image: registry.gitlab.com/oc-expert-devops-training/workshop-organizer/p3-correction:latest
->>>>>>> Stashed changes
+  image: registry.gitlab.com/oc-expert-devops-training/workshop-organizer/main:latest
   port: 8080
   imagePullSecret: gitlab-registry-secret
 
