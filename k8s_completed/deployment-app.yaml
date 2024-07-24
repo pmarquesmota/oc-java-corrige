@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: workshop-organizer-app
-        image: registry.gitlab.com/oc-expert-devops-training/workshop-organizer/snapshot:latest
+        image: registry.gitlab.com/oc-expert-devops-training/workshop-organizer/main:latest
         ports:
         - containerPort: 8080
         env:
