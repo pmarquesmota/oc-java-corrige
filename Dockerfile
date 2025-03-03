@@ -1,4 +1,4 @@
-FROM gradle:8.7-jdk21-alpine AS BUILDER
+FROM gradle:8.12.1-jdk-alpine AS BUILDER
 
 WORKDIR /app
 
@@ -6,7 +6,7 @@ COPY . .
 
 RUN gradle bootWar
 
-FROM tomcat:10.1.24-jre21-temurin-jammy
+FROM tomcat:alpine
 
 RUN rm -rf $CATALINA_HOME/webapps/*
 
