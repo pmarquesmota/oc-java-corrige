@@ -22,5 +22,6 @@ services:
       - postgres:/var/lib/postgresql/data
 
 volumes:
+  gradle-cache:
   postgres:
   workshop:

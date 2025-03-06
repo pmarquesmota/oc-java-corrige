@@ -1,0 +1,21 @@
+services:
+  git:
+    image: bitnami/git:latest
+    container_name: git
+    command: ["git", "clone", "https://github.com/pmarquesmota/oc-java-corrige.git", "srv"]
+    volumes:
+      - ~/docker/workshop:/srv
+
+  gradle:
+    image: gradle:8.12.1-jdk-alpine
+    container_name: gradle
+    command: ["gradle", "bootwar"]
+    volumes:
+      - ~/docker/workshop:/home/gradle
+      - ~/docker/gradle:/home/gradle/.gradle      
+    depends_on:
+      - git
+
+volumes:
+  gradle-cache:
+  workshop:
