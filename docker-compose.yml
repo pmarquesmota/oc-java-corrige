@@ -2,7 +2,7 @@ services:
   front:
     image: olympic-games-starter
     ports:
-      - "4200:4200"
+      - "1974:80"
 
   back:
     image: workshop-organizer
