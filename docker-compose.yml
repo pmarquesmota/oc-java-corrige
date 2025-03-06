@@ -1,16 +1,17 @@
 services:
+  front:
+    image: olympic-games-starter
+    ports:
+      - "4200:4200"
 
-  app:
-    image: tomcat:alpine
+  back:
+    image: workshop-organizer
     ports:
       - "8080:8080"
     environment:
       SPRING_DATASOURCE_URL: "jdbc:postgresql://db:5432/workshopsdb"
       SPRING_DATASOURCE_USERNAME: workshops_user
       SPRING_DATASOURCE_PASSWORD: oc2024
-    volumes:
-      - gradle-cache:/root/.gradle
-      - workshop:/srv
 
   db:
     image: postgres:13
@@ -22,6 +23,4 @@ services:
       - postgres:/var/lib/postgresql/data
 
 volumes:
-  gradle-cache:
   postgres:
-  workshop:
